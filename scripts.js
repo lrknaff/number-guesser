@@ -5,29 +5,52 @@
 // can I put in a range?
 
 
-var min = 0;
-var max = 10;
+var minInput = document.querySelector('#min-input');
+var maxInput = document.querySelector('#max-input');
 
-var random = randoNumber(min,max)
 
-var guessNumberText = document.querySelector('.guess-a-number')
+var guessNumberText = document.querySelector('.guess-a-number');
 
 var submitButton = document.querySelector('#submit-guess-btn');
 
 var clearButton = document.querySelector('#clear-btn');
 
-var resetGameButton = document.querySelector('#reset-game-btn')
+var resetGameButton = document.querySelector('#reset-game-btn');
 
 var lastGuess = document.querySelector('.last-guess-number');
 
 var tryAgain = document.querySelector('.try-again');
 
+var submitRangeButton = document.querySelector('#submit-range-btn');
 
-document.querySelector('.guess-a-number').innerText = 'Guess a number between ' + min + ' and ' + max;
+var lowNumber;
+var highNumber;
+var random;
+// var random = randoNumber(minNumber, maxNumber);
 
-function randoNumber(min, max){
+// document.querySelector('.guess-a-number').innerText = 'Guess a number between ' + lowNumber + ' and ' + highNumber;
+
+
+function randoNumber(min, max) {
    return Math.floor(Math.random() * (max - min)) + min;
 }
+
+function minNumber() {
+  return parseInt(minInput.value);
+}
+
+function maxNumber() {
+  return parseInt(maxInput.value);
+}
+
+
+submitRangeButton.addEventListener('click', function() {
+  lowNumber = minNumber();
+  highNumber = maxNumber();
+  random = randoNumber(lowNumber, highNumber);
+
+  document.querySelector('.guess-a-number').innerText = 'Guess a number between ' + lowNumber + ' and ' + highNumber;
+});
 
 submitButton.addEventListener('click', function () {
   guessNumberText.innerText = "Your last guess was...";
@@ -42,68 +65,43 @@ submitButton.addEventListener('click', function () {
     tryAgain.innerText = 'Sorry, that guess is too high. Try a lower number.'
   }
   else if ( convertedNumber === random ) {
-    tryAgain.innerText = "Correct!"
+    tryAgain.innerText = 'Correct!'
+    //call function set new min and max values
+
   }
   else {
-    tryAgain.innerText = "Error. You must guess a number."
+    tryAgain.innerText = 'Error. You must guess a number.'
   }
   ;
 
-  if ( convertedNumber > max ) {
-    tryAgain.innerText = "Only guess a number between " + min + " and " + max;
+  if ( convertedNumber > maxNumber ) {
+    tryAgain.innerText = "Only guess a number between " + minNumber + " and " + maxNumber;
     lastGuess.innerText = "Uh oh!"
   }
-  if ( convertedNumber < min ) {
-    tryAgain.innerText = "Only guess a number between " + min + " and " + max;
+  if ( convertedNumber < minNumber ) {
+    tryAgain.innerText = "Only guess a number between " + minNumber + " and " + maxNumber;
     lastGuess.innerText = "Uh oh!"
   }
 });
 
+
+clearButton.disabled = true;
+resetGameButton.disabled = true;
+
+var inputArea = document.querySelector('#guess');
+inputArea.onkeyup = function() {
+  clearButton.disabled = false
+  resetGameButton.disabled = false
+}
+
 clearButton.addEventListener('click', function () {
   document.querySelector('#guess').value = '';
   var inputArea = document.querySelector('#guess').value;
-
-  if ( inputArea.length > 0 ) {
-    clearButton.disabled = false;
-  }
-  else if ( inputArea.length <= 0 ) {
+  if ( inputArea === '' ) {
     clearButton.disabled = true;
   }
-  // else if ( inputArea !== value ) {
-  //   clearButton.disabled = false;
-  // };
 });
 
 resetGameButton.addEventListener('click', function () {
   location.reload();
 });
-
-
-
-
-
-
-
-// if ( convertedNumber < random ) {
-//   tryAgain.innerText = 'That number was too low. Guess again.';
-// }
-// else if ( convertedNumber > random ) {
-//   tryAgain.innerText = 'That number was too high. Guess again.'
-// }
-// else {
-//   tryAgain.innerText = "Correct!"
-// };
-
-
-
-
-
-
-
-
-// function randomNumber(min, max) { return Math.floor((Math.random() * max) + min);
-// }
-//
-// function getRandomNumber(min, max) {
-//
-// }
