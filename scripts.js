@@ -41,9 +41,13 @@ submitButton.addEventListener('click', function () {
   else if ( convertedNumber > random ) {
     tryAgain.innerText = 'Sorry, that guess is too high. Try a lower number.'
   }
-  else {
+  else if ( convertedNumber === random ) {
     tryAgain.innerText = "Correct!"
-  };
+  }
+  else {
+    tryAgain.innerText = "Error. You must guess a number."
+  }
+  ;
 
   if ( convertedNumber > max ) {
     tryAgain.innerText = "Only guess a number between " + min + " and " + max;
@@ -56,7 +60,18 @@ submitButton.addEventListener('click', function () {
 });
 
 clearButton.addEventListener('click', function () {
-  location.reload();
+  document.querySelector('#guess').value = '';
+  var inputArea = document.querySelector('#guess').value;
+
+  if ( inputArea.length > 0 ) {
+    clearButton.disabled = false;
+  }
+  else if ( inputArea.length <= 0 ) {
+    clearButton.disabled = true;
+  }
+  // else if ( inputArea !== value ) {
+  //   clearButton.disabled = false;
+  // };
 });
 
 resetGameButton.addEventListener('click', function () {
