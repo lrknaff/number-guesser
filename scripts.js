@@ -56,6 +56,9 @@ function decreaseMin () {
   return newLowNum;
 }
 
+clearButton.disabled = true;
+resetGameButton.disabled = true;
+
 guessNumberText.style.visibility = "hidden";
 
 submitRangeButton.addEventListener('click', function() {
@@ -67,6 +70,7 @@ submitRangeButton.addEventListener('click', function() {
 
   submitBox.style.visibility = "hidden";
   guessNumberText.style.visibility = "visible";
+  resetGameButton.disabled = false;
 });
 
 submitButton.addEventListener('click', function () {
@@ -104,8 +108,6 @@ submitButton.addEventListener('click', function () {
 });
 
 
-clearButton.disabled = true;
-resetGameButton.disabled = true;
 
 var inputArea = document.querySelector('#guess');
 inputArea.onkeyup = function() {
