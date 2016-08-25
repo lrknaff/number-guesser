@@ -48,19 +48,20 @@ submitRangeButton.addEventListener('click', function() {
   lowNumber = minNumber();
   highNumber = maxNumber();
   random = randoNumber(lowNumber, highNumber);
-
+  minInput.value = "";
+  maxInput.value = "";
   guessNumberText.innerText = 'Guess a number between ' + lowNumber + ' and ' + highNumber;
 
   submitBox.style.visibility = "hidden";
   guessNumberText.style.visibility = "visible";
 });
 
-submitButton.addEventListener('click', function () {
-  guessNumberText.innerText = "Your last guess was...";
-  var inputField = document.querySelector('#guess').value
-  var convertedNumber = parseInt(inputField);
-  lastGuess.innerText = convertedNumber;
+function clearSubmitInput () {
+  inputArea.value = ("");
 
+}
+
+function evaluateGuess(convertedNumber, lowNumber, highNumber) {
   if ( convertedNumber < random ) {
     tryAgain.innerText = 'Sorry, that guess is too low. Try a higher number.';
   }
@@ -78,6 +79,9 @@ submitButton.addEventListener('click', function () {
     tryAgain.innerText = 'Error. You must guess a number.'
   };
 
+}
+
+function evaluateMinMax(convertedNumber, lowNumber, highNumber) {
   if ( convertedNumber > highNumber ) {
     tryAgain.innerText = "Only guess a number between " + lowNumber + " and " + highNumber;
     lastGuess.innerText = "Uh oh!";
@@ -86,6 +90,17 @@ submitButton.addEventListener('click', function () {
     tryAgain.innerText = "Only guess a number between " + lowNumber + " and " + highNumber;
     lastGuess.innerText = "Uh oh!";
   };
+
+}
+
+submitButton.addEventListener('click', function () {
+  guessNumberText.innerText = "Your last guess was...";
+  var convertedNumber = parseInt(inputArea.value);
+  lastGuess.innerText = convertedNumber;
+  evaluateMinMax(convertedNumber, lowNumber, highNumber);
+  clearSubmitInput();
+  evaluateGuess(convertedNumber, lowNumber, highNumber);
+
 });
 
 inputArea.onkeyup = function() {
@@ -100,6 +115,19 @@ clearButton.addEventListener('click', function () {
   }
 });
 
+function clearText() {
+  guessNumberText.innerText = "";
+  lastGuess.innerText = "";
+  tryAgain.innerText = "";
+}
+
 resetGameButton.addEventListener('click', function () {
-  location.reload();
+
+  clearSubmitInput();
+  submitBox.style.visibility = "visible";
+  lowNumber = null;
+  highNumber = null;
+  clearButton.disabled = true;
+  resetGameButton.disabled = true;
+  clearText();
 });
