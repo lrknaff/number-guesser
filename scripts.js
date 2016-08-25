@@ -8,6 +8,7 @@
 var minInput = document.querySelector('#min-input');
 var maxInput = document.querySelector('#max-input');
 
+var submitBox = document.querySelector('.min-max-area');
 
 var guessNumberText = document.querySelector('.guess-a-number');
 
@@ -28,18 +29,14 @@ var highNumber;
 var random;
 var newLowNum;
 var newHighNum;
-// var random = randoNumber(minNumber, maxNumber);
+
 
 // document.querySelector('.guess-a-number').innerText = 'Guess a number between ' + lowNumber + ' and ' + highNumber;
 
 
 function randoNumber(min, max) {
-   return Math.floor(Math.random() * (max - min)) + max;
+   return Math.floor(Math.random() * (lowNumber - highNumber)) + highNumber;
 }
-
-// function newRandoNumber (min, max) {
-//   return Math.floor(Math.random() *)
-// }
 
 function minNumber() {
   return parseInt(minInput.value);
@@ -59,6 +56,7 @@ function decreaseMin () {
   return newLowNum;
 }
 
+guessNumberText.style.visibility = "hidden";
 
 submitRangeButton.addEventListener('click', function() {
   lowNumber = minNumber();
@@ -66,6 +64,9 @@ submitRangeButton.addEventListener('click', function() {
   random = randoNumber(lowNumber, highNumber);
 
   document.querySelector('.guess-a-number').innerText = 'Guess a number between ' + lowNumber + ' and ' + highNumber;
+
+  submitBox.style.visibility = "hidden";
+  guessNumberText.style.visibility = "visible";
 });
 
 submitButton.addEventListener('click', function () {
@@ -78,32 +79,28 @@ submitButton.addEventListener('click', function () {
     tryAgain.innerText = 'Sorry, that guess is too low. Try a higher number.';
   }
   else if ( convertedNumber > random ) {
-    tryAgain.innerText = 'Sorry, that guess is too high. Try a lower number.'
+    tryAgain.innerText = 'Sorry, that guess is too high. Try a lower number.';
   }
   else if ( convertedNumber === random ) {
-    tryAgain.innerText = 'Correct!';
+    tryAgain.innerText = 'Correct!'
     increaseMax();
     decreaseMin();
-    document.querySelector('.guess-a-number').innerText = 'Guess a number between ' + newLowNum + ' and ' + newHighNum;
-    randoNumber();
-
-
-    //call function set new min and max values
-
+    random = randoNumber(lowNumber, highNumber);
+    document.querySelector('.guess-a-number').innerText = 'Guess a number between ' + newLowNum + ' and ' + newHighNum
+    // randoNumber();
   }
   else {
     tryAgain.innerText = 'Error. You must guess a number.'
-  }
-  ;
+  };
 
-  if ( convertedNumber > maxNumber ) {
-    tryAgain.innerText = "Only guess a number between " + minNumber + " and " + maxNumber;
-    lastGuess.innerText = "Uh oh!"
+  if ( convertedNumber > highNumber ) {
+    tryAgain.innerText = "Only guess a number between " + lowNumber + " and " + highNumber;
+    lastGuess.innerText = "Uh oh!";
   }
-  if ( convertedNumber < minNumber ) {
-    tryAgain.innerText = "Only guess a number between " + minNumber + " and " + maxNumber;
-    lastGuess.innerText = "Uh oh!"
-  }
+  else if ( convertedNumber < lowNumber ) {
+    tryAgain.innerText = "Only guess a number between " + lowNumber + " and " + highNumber;
+    lastGuess.innerText = "Uh oh!";
+  };
 });
 
 
