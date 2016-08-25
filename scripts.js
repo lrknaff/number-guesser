@@ -1,37 +1,21 @@
-// get the guess form value
-// generate a random number
-// maybe create a function that will compare the guess with the randomn number
-// see if you can get the dom to tell you if you got the guess correct or not.
-// can I put in a range?
-
 
 var minInput = document.querySelector('#min-input');
 var maxInput = document.querySelector('#max-input');
-
 var submitBox = document.querySelector('.min-max-area');
-
 var guessNumberText = document.querySelector('.guess-a-number');
-
 var submitButton = document.querySelector('#submit-guess-btn');
-
 var clearButton = document.querySelector('#clear-btn');
-
 var resetGameButton = document.querySelector('#reset-game-btn');
-
 var lastGuess = document.querySelector('.last-guess-number');
-
 var tryAgain = document.querySelector('.try-again');
-
 var submitRangeButton = document.querySelector('#submit-range-btn');
+var inputArea = document.querySelector('#guess');
 
 var lowNumber;
 var highNumber;
 var random;
 var newLowNum;
 var newHighNum;
-
-
-// document.querySelector('.guess-a-number').innerText = 'Guess a number between ' + lowNumber + ' and ' + highNumber;
 
 
 function randoNumber(min, max) {
@@ -57,13 +41,15 @@ function decreaseMin () {
 }
 
 guessNumberText.style.visibility = "hidden";
+clearButton.disabled = true;
+resetGameButton.disabled = true;
 
 submitRangeButton.addEventListener('click', function() {
   lowNumber = minNumber();
   highNumber = maxNumber();
   random = randoNumber(lowNumber, highNumber);
 
-  document.querySelector('.guess-a-number').innerText = 'Guess a number between ' + lowNumber + ' and ' + highNumber;
+  guessNumberText.innerText = 'Guess a number between ' + lowNumber + ' and ' + highNumber;
 
   submitBox.style.visibility = "hidden";
   guessNumberText.style.visibility = "visible";
@@ -87,7 +73,6 @@ submitButton.addEventListener('click', function () {
     decreaseMin();
     random = randoNumber(lowNumber, highNumber);
     document.querySelector('.guess-a-number').innerText = 'Guess a number between ' + newLowNum + ' and ' + newHighNum
-    // randoNumber();
   }
   else {
     tryAgain.innerText = 'Error. You must guess a number.'
@@ -103,20 +88,14 @@ submitButton.addEventListener('click', function () {
   };
 });
 
-
-clearButton.disabled = true;
-resetGameButton.disabled = true;
-
-var inputArea = document.querySelector('#guess');
 inputArea.onkeyup = function() {
   clearButton.disabled = false
   resetGameButton.disabled = false
 }
 
 clearButton.addEventListener('click', function () {
-  document.querySelector('#guess').value = '';
-  var inputArea = document.querySelector('#guess').value;
-  if ( inputArea === '' ) {
+  inputArea.value = '';
+  if ( inputArea.value === '' ) {
     clearButton.disabled = true;
   }
 });
