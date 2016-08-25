@@ -40,6 +40,7 @@ function decreaseMin () {
   return newLowNum;
 }
 
+
 guessNumberText.style.visibility = "hidden";
 clearButton.disabled = true;
 resetGameButton.disabled = true;
@@ -97,16 +98,34 @@ submitButton.addEventListener('click', function () {
   guessNumberText.innerText = "Your last guess was...";
   var convertedNumber = parseInt(inputArea.value);
   lastGuess.innerText = convertedNumber;
-  evaluateMinMax(convertedNumber, lowNumber, highNumber);
   clearSubmitInput();
   evaluateGuess(convertedNumber, lowNumber, highNumber);
-
+  evaluateMinMax(convertedNumber, lowNumber, highNumber);
 });
+
+
+
+function submitRangeButtonEnabled() {
+if(minInput.value === "" || maxInput.value === "") {
+  submitRangeButton.disabled = true;
+} else {
+  submitRangeButton.disabled = false;
+}
+};
+
+
+minInput.onkeyup = function() {
+  submitRangeButtonEnabled();
+}
+
+maxInput.onkeyup = function() {
+  submitRangeButtonEnabled();
+}
 
 inputArea.onkeyup = function() {
   clearButton.disabled = false
   resetGameButton.disabled = false
-}
+};
 
 clearButton.addEventListener('click', function () {
   inputArea.value = '';
@@ -122,7 +141,7 @@ function clearText() {
 }
 
 resetGameButton.addEventListener('click', function () {
-
+  submitRangeButtonEnabled();
   clearSubmitInput();
   submitBox.style.visibility = "visible";
   lowNumber = null;
