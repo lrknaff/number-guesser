@@ -1,4 +1,4 @@
-This was our first project at Turing. The focus was raw JavaScript. The object was to create a program (game) that allowed users to enter a range of numbers and have the program generate a random number to compare it to. The user would guess numbers until the correct number was found and then the program would
+This was our first project at Turing. The focus was raw JavaScript. The object was to create a program (game) that allowed users to enter a range of numbers and have the program generate a random number to compare it to. The user would guess numbers until the correct number was found and then the program would increase the range of numbers and generate a new random number. Buttons with specific functionality were also added.
 
 
 
